@@ -2,7 +2,7 @@ package com.example.shift.feature.note.list.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.shift.feature.note.domain.entity.Note
+import com.example.common.Note
 import com.example.shift.feature.note.list.domain.GetNotesUseCase
 import com.example.shift.feature.util.viewmodel.SingleLiveEvent
 

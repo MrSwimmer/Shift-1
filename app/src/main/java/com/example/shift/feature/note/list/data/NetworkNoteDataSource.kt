@@ -1,6 +1,6 @@
 package com.example.shift.feature.note.list.data
 
-import com.example.shift.feature.note.domain.entity.Note
+import com.example.common.Note
 
 interface NetworkNoteDataSource {
 

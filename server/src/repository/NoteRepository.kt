@@ -1,30 +1,13 @@
 package com.example.server.repository
 
-import com.example.common.Note
+import com.example.server.db.dbQuery
+import com.example.server.db.table.Notes
+import com.example.server.db.table.toNote
+import org.jetbrains.exposed.sql.selectAll
 
 class NoteRepository {
-    fun getAll() =
-        listOf(
-            Note(
-                "Научиться создавать приложения под Android",
-                "Описание 1"
-            ),
-            Note("Сходить в магазин", "Описание 2"),
-            Note(
-                "Ответить на вопросы из чатика",
-                "Описание 3"
-            ),
-            Note("Открыть Америку", "Описание 4"),
-            Note("Сдать сессию", "Описание 5"),
-            Note("Вынести мусор", "Описание 6"),
-            Note("Накормить кота", "Описание 7"),
-            Note(
-                "Закоммитить изменения",
-                "Описание 8"
-            ),
-            Note(
-                "Подготовиться к докладу",
-                "Описание 9"
-            )
-        )
+    suspend fun getAll() =
+        dbQuery {
+            Notes.selectAll().map { it.toNote() }
+        }
 }

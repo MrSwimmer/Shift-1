@@ -2,8 +2,8 @@ package com.example.shift.feature.note.detail.presentaion
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.common.Note
 import com.example.shift.R
-import com.example.shift.feature.note.domain.entity.Note
 import kotlinx.android.synthetic.main.activity_detail_note.*
 
 class NoteDetailActivity: AppCompatActivity() {
