@@ -7,5 +7,5 @@ class GetNotesUseCase(
     private val notesRepository: NotesRepository
 ) {
 
-    operator fun invoke(): List<Note> = notesRepository.getNotes()
+    suspend operator fun invoke(): List<Note> = notesRepository.getNotes()
 }

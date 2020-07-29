@@ -7,5 +7,5 @@ class NoteRepositoryImpl(
     private val networkNoteDataSource: NetworkNoteDataSource
 ) : NotesRepository {
 
-    override fun getNotes(): List<Note> = networkNoteDataSource.getNotes()
+    override suspend fun getNotes(): List<Note> = networkNoteDataSource.getNotes()
 }

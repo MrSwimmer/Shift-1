@@ -4,5 +4,5 @@ import com.example.common.Note
 
 interface NotesRepository {
 
-    fun getNotes() : List<Note>
+    suspend fun getNotes() : List<Note>
 }
