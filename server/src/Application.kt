@@ -1,5 +1,6 @@
 package com.example.server
 
+import com.example.common.CreateNoteDto
 import com.example.server.db.DatabaseFactory
 import com.example.server.repository.NoteRepository
 import io.ktor.application.Application
@@ -7,9 +8,10 @@ import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.gson.gson
+import io.ktor.http.HttpStatusCode
+import io.ktor.request.receive
 import io.ktor.response.respond
-import io.ktor.routing.get
-import io.ktor.routing.routing
+import io.ktor.routing.*
 import java.net.URI
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -35,11 +37,28 @@ fun Application.module(testing: Boolean = false) {
         init()
     }
 
+    val repository = NoteRepository()
+
     routing {
-        get("/notes") {
-            val repository = NoteRepository()
-            val notes = repository.getAll()
-            call.respond(notes)
+        route("/notes") {
+            get {
+                val notes = repository.getAll()
+                call.respond(notes)
+            }
+            post {
+                val note = call.receive<CreateNoteDto>()
+                repository.add(note)
+                call.respond(HttpStatusCode.OK)
+            }
+            delete {
+                val id = call.request.queryParameters["id"]?.toLong()
+                if (id == null) {
+                    call.respond(HttpStatusCode.NotFound)
+                } else {
+                    repository.delete(id)
+                    call.respond(HttpStatusCode.OK)
+                }
+            }
         }
     }
 }
