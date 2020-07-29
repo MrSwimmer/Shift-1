@@ -38,3 +38,7 @@ dependencies {
 
     implementation project(":common")
 }
+
+tasks.register("stage") {
+    dependsOn("installDist")
+}
