@@ -4,6 +4,7 @@ import com.example.common.CreateNoteDto
 import com.example.server.db.dbQuery
 import com.example.server.db.table.Notes
 import com.example.server.db.table.toNote
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
@@ -17,9 +18,7 @@ class NoteRepository {
 
     suspend fun getPage(start: Long, size: Int) =
         dbQuery {
-            Notes.select {
-                Notes.id.eq(start)
-            }.limit(size)
+            Notes.select(Notes.id.eq(start)).limit(size)
         }
 
     suspend fun add(createNoteDto: CreateNoteDto) {
