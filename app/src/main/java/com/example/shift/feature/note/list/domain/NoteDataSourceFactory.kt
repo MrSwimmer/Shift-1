@@ -3,7 +3,7 @@ package com.example.shift.feature.note.list.domain
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.example.common.Note
-import com.example.shift.feature.note.list.data.NotePositionalDataSource
+import com.example.shift.feature.note.list.data.NoteItemKeyedDataSource
 import kotlinx.coroutines.CoroutineScope
 
 class NoteDataSourceFactory(
@@ -11,11 +11,11 @@ class NoteDataSourceFactory(
     private val coroutineScope: CoroutineScope
 ) : DataSource.Factory<Int, Note>() {
 
-    val liveDataSource = MutableLiveData<NotePositionalDataSource>()
+    private val liveDataSource = MutableLiveData<NoteItemKeyedDataSource>()
 
     override fun create(): DataSource<Int, Note> {
         val source =
-            NotePositionalDataSource(
+            NoteItemKeyedDataSource(
                 repository,
                 coroutineScope
             )
