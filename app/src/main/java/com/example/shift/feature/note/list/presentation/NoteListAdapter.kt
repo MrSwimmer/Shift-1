@@ -4,12 +4,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common.Note
 import com.example.shift.R
 import java.util.*
 
-class NoteListAdapter(private val clickListener:(Note) -> Unit): RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
+class NoteListAdapter(
+    diffUtilCallback: DiffUtil.ItemCallback<Note>,
+    private val clickListener: (Note) -> Unit
+) : PagedListAdapter<Note, NoteListAdapter.ViewHolder>(diffUtilCallback) {
 
     private val noteList: MutableList<Note> = LinkedList()
 
@@ -26,10 +31,6 @@ class NoteListAdapter(private val clickListener:(Note) -> Unit): RecyclerView.Ad
             view,
             clickListener
         )
-    }
-
-    override fun getItemCount(): Int {
-        return noteList.count()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

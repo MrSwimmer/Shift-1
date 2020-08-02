@@ -27,18 +27,18 @@ class NoteListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_list)
-        viewModel.notes.observe(this, Observer(::setNoteList))
+//        viewModel.notes.observe(this, Observer(::setNoteList))
         viewModel.noteClickedEvent.observe(this, Observer(::showNoteDetails))
 
         val layoutManager =
             LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
-
+        adapter.submitList(viewModel.notes.value)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = layoutManager
     }
 
     private fun setNoteList(notesList: List<Note>) {
-        adapter.setNoteList(notesList)
+//        adapter.setNoteList(notesList)
     }
 
     private fun showNoteDetails(note: Note) {
