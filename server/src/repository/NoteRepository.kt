@@ -18,7 +18,7 @@ class NoteRepository {
     suspend fun getPage(start: Long, size: Int) =
         dbQuery {
             Notes.select {
-                Notes.id.greaterEq(start)
+                Notes.id.greater(start)
             }.limit(size).map { it.toNote() }
         }
 

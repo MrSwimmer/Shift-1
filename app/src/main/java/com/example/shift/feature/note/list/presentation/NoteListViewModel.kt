@@ -22,6 +22,7 @@ class NoteListViewModel(
 
     private val config = Config(
         pageSize = 10,
+        prefetchDistance = 1,
         enablePlaceholders = false
     )
 
