@@ -19,7 +19,7 @@ class NoteRepository {
         dbQuery {
             Notes.select {
                 Notes.id.eq(start)
-            }.limit(size).map { it.toNote() }
+            }.limit(size, size).map { it.toNote() }
         }
 
     suspend fun add(createNoteDto: CreateNoteDto) {
