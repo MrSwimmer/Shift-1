@@ -9,21 +9,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common.Note
 import com.example.shift.R
-import java.util.*
 
 class NoteListAdapter(
     diffUtilCallback: DiffUtil.ItemCallback<Note>,
     private val clickListener: (Note) -> Unit
 ) : PagedListAdapter<Note, NoteListAdapter.ViewHolder>(diffUtilCallback) {
-
-    private val noteList: MutableList<Note> = LinkedList()
-
-    fun setNoteList(newNotes: List<Note>) {
-        noteList.clear()
-        noteList.addAll(newNotes)
-
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cell_note, parent, false)
@@ -34,7 +24,7 @@ class NoteListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(model = noteList[position])
+        holder.bind(getItem(position)!!)
     }
 
     class ViewHolder(itemView: View, private val noteListener: (Note) -> Unit) : RecyclerView.ViewHolder(itemView) {
@@ -42,7 +32,7 @@ class NoteListAdapter(
         private val title: TextView = itemView.findViewById(R.id.titleNote)
 
         fun bind(model: Note) {
-            title.text = model.title
+            title.text = model.id.toString()
             itemView.setOnClickListener {
                 noteListener(model)
             }

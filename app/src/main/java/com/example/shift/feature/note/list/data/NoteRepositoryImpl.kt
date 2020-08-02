@@ -7,5 +7,9 @@ class NoteRepositoryImpl(
     private val networkNoteDataSource: NetworkNoteDataSource
 ) : NotesRepository {
 
-    override suspend fun getNotes(): List<Note> = networkNoteDataSource.getNotes()
+    override suspend fun getNotes(): List<Note> =
+        networkNoteDataSource.getNotes()
+
+    override suspend fun getPage(start: Int, size: Int): List<Note> =
+        networkNoteDataSource.getPage(start, size)
 }

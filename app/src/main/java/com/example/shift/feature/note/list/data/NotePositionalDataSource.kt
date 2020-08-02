@@ -10,6 +10,7 @@ class NotePositionalDataSource(
     private val repository: NotesRepository,
     private val coroutineScope: CoroutineScope
 ) : PositionalDataSource<Note>() {
+
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Note>) {
         val start = params.startPosition
         val size = params.loadSize
