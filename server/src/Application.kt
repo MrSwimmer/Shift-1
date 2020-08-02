@@ -47,7 +47,8 @@ fun Application.module(testing: Boolean = false) {
                 val start = call.request.queryParameters["start"]?.toLong()
                 val size = call.request.queryParameters["size"]?.toInt()
                 if (start == null || size == null) {
-                    call.respond(HttpStatusCode.NotFound)
+                    val notes = repository.getAll()
+                    call.respond(notes)
                 } else {
                     val notes = repository.getPage(start, size)
                     call.respond(notes)
