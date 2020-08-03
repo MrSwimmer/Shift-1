@@ -44,8 +44,15 @@ fun Application.module(testing: Boolean = false) {
     routing {
         route("/notes") {
             get {
-                val notes = repository.getAll()
-                call.respond(notes)
+                val start = call.request.queryParameters["start"]?.toLong()
+                val size = call.request.queryParameters["size"]?.toInt()
+                if (start == null || size == null) {
+                    val notes = repository.getAll()
+                    call.respond(notes)
+                } else {
+                    val notes = repository.getPage(start, size)
+                    call.respond(notes)
+                }
             }
             post {
                 val note = call.receive<CreateNoteDto>()

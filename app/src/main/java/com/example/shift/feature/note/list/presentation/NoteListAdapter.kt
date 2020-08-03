@@ -4,21 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common.Note
 import com.example.shift.R
-import java.util.*
 
-class NoteListAdapter(private val clickListener:(Note) -> Unit): RecyclerView.Adapter<NoteListAdapter.ViewHolder>() {
-
-    private val noteList: MutableList<Note> = LinkedList()
-
-    fun setNoteList(newNotes: List<Note>) {
-        noteList.clear()
-        noteList.addAll(newNotes)
-
-        notifyDataSetChanged()
-    }
+class NoteListAdapter(
+    diffUtilCallback: NoteDiffUtilCallback,
+    private val clickListener: (Note) -> Unit
+) : PagedListAdapter<Note, NoteListAdapter.ViewHolder>(diffUtilCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cell_note, parent, false)
@@ -28,12 +22,8 @@ class NoteListAdapter(private val clickListener:(Note) -> Unit): RecyclerView.Ad
         )
     }
 
-    override fun getItemCount(): Int {
-        return noteList.count()
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(model = noteList[position])
+        getItem(position)?.let { holder.bind(it) }
     }
 
     class ViewHolder(itemView: View, private val noteListener: (Note) -> Unit) : RecyclerView.ViewHolder(itemView) {

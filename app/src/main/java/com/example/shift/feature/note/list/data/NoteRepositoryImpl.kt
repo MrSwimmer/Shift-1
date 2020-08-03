@@ -8,4 +8,6 @@ class NoteRepositoryImpl(
 ) : NotesRepository {
 
     override suspend fun getNotes(): List<Note> = networkNoteDataSource.getNotes()
+
+    override suspend fun getPage(start: Long, size: Int): List<Note> = networkNoteDataSource.getPage(start, size)
 }

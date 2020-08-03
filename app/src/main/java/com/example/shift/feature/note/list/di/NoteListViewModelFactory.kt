@@ -33,7 +33,7 @@ class NoteListViewModelFactory : ViewModelProvider.Factory {
             val noteRepository = NoteRepositoryImpl(networkDataSource)
             val getNoteUseCase = GetNotesUseCase(noteRepository)
 
-            return NoteListViewModel(getNoteUseCase) as T
+            return NoteListViewModel(noteRepository) as T
         } else {
             error("Unexpected class $modelClass")
         }
