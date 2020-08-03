@@ -24,7 +24,7 @@ class NoteListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position)!!)
+        getItem(position)?.let { holder.bind(it) }
     }
 
     class ViewHolder(itemView: View, private val noteListener: (Note) -> Unit) : RecyclerView.ViewHolder(itemView) {

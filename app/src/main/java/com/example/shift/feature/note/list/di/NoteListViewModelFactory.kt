@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.shift.feature.note.list.data.NetworkNoteDataSourceImpl
 import com.example.shift.feature.note.list.data.NoteRepositoryImpl
 import com.example.shift.feature.note.list.data.NotesApi
-import com.example.shift.feature.note.list.domain.GetNotesUseCase
 import com.example.shift.feature.note.list.presentation.NoteListViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

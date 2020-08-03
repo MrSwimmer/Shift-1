@@ -18,7 +18,7 @@ class NoteListViewModel(
     val noteClickedEvent =
         SingleLiveEvent<Note>()
 
-    private val notesDataSource =
+    private val notesDataSourceFactory =
         NoteDataSourceFactory(
             noteRepository,
             viewModelScope
@@ -30,7 +30,7 @@ class NoteListViewModel(
         enablePlaceholders = false
     )
 
-    val notes: LiveData<PagedList<Note>> = LivePagedListBuilder(notesDataSource, config).build()
+    val notes: LiveData<PagedList<Note>> = LivePagedListBuilder(notesDataSourceFactory, config).build()
 
     fun noteClicked(note: Note) {
         noteClickedEvent(note)

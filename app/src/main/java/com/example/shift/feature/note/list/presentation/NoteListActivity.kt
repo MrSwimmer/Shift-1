@@ -35,7 +35,6 @@ class NoteListActivity : AppCompatActivity() {
     }
 
     private fun setNoteList(notesList: PagedList<Note>) {
-        if (notesList.isEmpty()) return
         adapter.submitList(notesList)
         recyclerView.adapter = adapter
     }
