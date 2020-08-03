@@ -15,14 +15,19 @@ class NoteListViewModel(
     notesRepository: NotesRepository
 ) : ViewModel() {
 
-    private val factory = NoteDataSourceFactory(notesRepository, viewModelScope)
+    private val notesDataSourceFactory =
+        NoteDataSourceFactory(
+            notesRepository,
+            viewModelScope
+        )
+
     private val config = Config(
-        pageSize = 10,
-        prefetchDistance = 2,
+        pageSize = 5,
+        prefetchDistance = 1,
         enablePlaceholders = false
     )
 
-    val notes: LiveData<PagedList<Note>> = LivePagedListBuilder(factory, config).build()
+    val notes: LiveData<PagedList<Note>> = LivePagedListBuilder(notesDataSourceFactory, config).build()
 
     val noteClickedEvent =
         SingleLiveEvent<Note>()

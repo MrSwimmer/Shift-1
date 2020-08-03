@@ -15,7 +15,8 @@ class NoteItemKeyedDataSource(
         val start = params.key
         val size = params.requestedLoadSize
         coroutineScope.launch {
-            notesRepository.getPage(start, size)
+            val notes = notesRepository.getPage(start, size)
+            callback.onResult(notes)
         }
     }
 
@@ -25,7 +26,8 @@ class NoteItemKeyedDataSource(
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Note>) {
         val size = params.requestedLoadSize
         coroutineScope.launch {
-            notesRepository.getPage(0, size)
+            val notes = notesRepository.getPage(0, size)
+            callback.onResult(notes)
         }
     }
 

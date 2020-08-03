@@ -5,12 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common.Note
 import com.example.shift.R
 
 class NoteListAdapter(
-    diffUtilCallback: NoteDiffUtilCallback,
+    diffUtilCallback: DiffUtil.ItemCallback<Note>,
     private val clickListener: (Note) -> Unit
 ) : PagedListAdapter<Note, NoteListAdapter.ViewHolder>(diffUtilCallback) {
 
