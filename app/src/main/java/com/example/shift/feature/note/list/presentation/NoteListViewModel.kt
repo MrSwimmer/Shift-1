@@ -18,7 +18,11 @@ class NoteListViewModel(
     val noteClickedEvent =
         SingleLiveEvent<Note>()
 
-    private val notesDataSource = NoteDataSourceFactory(noteRepository, viewModelScope)
+    private val notesDataSource =
+        NoteDataSourceFactory(
+            noteRepository,
+            viewModelScope
+        )
 
     private val config = Config(
         pageSize = 10,

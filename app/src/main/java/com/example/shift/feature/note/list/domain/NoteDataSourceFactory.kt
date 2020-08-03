@@ -3,7 +3,6 @@ package com.example.shift.feature.note.list.domain
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.example.common.Note
-import com.example.shift.feature.note.list.data.NoteItemKeyedDataSource
 import kotlinx.coroutines.CoroutineScope
 
 class NoteDataSourceFactory(

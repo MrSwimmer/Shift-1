@@ -1,8 +1,7 @@
-package com.example.shift.feature.note.list.data
+package com.example.shift.feature.note.list.domain
 
 import androidx.paging.ItemKeyedDataSource
 import com.example.common.Note
-import com.example.shift.feature.note.list.domain.NotesRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
