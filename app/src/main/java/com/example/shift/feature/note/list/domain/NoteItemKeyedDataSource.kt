@@ -8,10 +8,10 @@ import kotlinx.coroutines.launch
 class NoteItemKeyedDataSource(
     private val notesRepository: NotesRepository,
     private val coroutineScope: CoroutineScope
-) : ItemKeyedDataSource<Long, Note>() {
-    override fun getKey(item: Note) = item.id
+) : ItemKeyedDataSource<Int, Note>() {
+    override fun getKey(item: Note) = item.id.toInt()
 
-    override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Note>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Note>) {
         val start = params.key
         val size = params.requestedLoadSize
         coroutineScope.launch {
@@ -19,10 +19,10 @@ class NoteItemKeyedDataSource(
         }
     }
 
-    override fun loadBefore(params: LoadParams<Long>, callback: LoadCallback<Note>) {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Note>) {
     }
 
-    override fun loadInitial(params: LoadInitialParams<Long>, callback: LoadInitialCallback<Note>) {
+    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Note>) {
         val size = params.requestedLoadSize
         coroutineScope.launch {
             notesRepository.getPage(0, size)

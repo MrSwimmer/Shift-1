@@ -9,5 +9,5 @@ interface NotesApi {
     suspend fun getAll(): List<Note>
 
     @GET("/notes")
-    suspend fun getPage(@Query("start") start: Long, @Query("size") size: Int): List<Note>
+    suspend fun getPage(@Query("start") start: Int, @Query("size") size: Int): List<Note>
 }

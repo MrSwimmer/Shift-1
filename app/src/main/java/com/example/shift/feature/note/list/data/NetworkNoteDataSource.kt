@@ -6,7 +6,7 @@ interface NetworkNoteDataSource {
 
     suspend fun getNotes(): List<Note>
 
-    suspend fun getPage(start: Long, size: Int): List<Note>
+    suspend fun getPage(start: Int, size: Int): List<Note>
 }
 
 class NetworkNoteDataSourceImpl(private val api: NotesApi) : NetworkNoteDataSource {
@@ -14,6 +14,6 @@ class NetworkNoteDataSourceImpl(private val api: NotesApi) : NetworkNoteDataSour
     override suspend fun getNotes(): List<Note> =
         api.getAll()
 
-    override suspend fun getPage(start: Long, size: Int): List<Note> =
+    override suspend fun getPage(start: Int, size: Int): List<Note> =
         api.getPage(start, size)
 }

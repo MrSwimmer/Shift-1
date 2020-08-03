@@ -8,11 +8,11 @@ import kotlinx.coroutines.CoroutineScope
 class NoteDataSourceFactory(
     private val notesRepository: NotesRepository,
     private val coroutineScope: CoroutineScope
-) : DataSource.Factory<Long, Note>() {
+) : DataSource.Factory<Int, Note>() {
 
     private val liveDataSource = MutableLiveData<NoteItemKeyedDataSource>()
 
-    override fun create(): DataSource<Long, Note> {
+    override fun create(): DataSource<Int, Note> {
         val source =
             NoteItemKeyedDataSource(
                 notesRepository,

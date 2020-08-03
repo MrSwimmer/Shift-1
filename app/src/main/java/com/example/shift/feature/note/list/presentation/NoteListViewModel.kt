@@ -18,7 +18,7 @@ class NoteListViewModel(
     private val factory = NoteDataSourceFactory(notesRepository, viewModelScope)
     private val config = Config(
         pageSize = 10,
-        prefetchDistance = 1,
+        prefetchDistance = 2,
         enablePlaceholders = false
     )
 
