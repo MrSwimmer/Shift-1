@@ -5,8 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.common.Note
 import com.example.shift.R
@@ -20,25 +19,25 @@ class NoteListActivity : AppCompatActivity() {
         NoteListViewModelFactory()
     }
     private val adapter =
-        NoteListAdapter { note ->
+        NoteListAdapter(NoteDiffUtilCallback()) { note ->
             viewModel.noteClicked(note)
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_list)
-        viewModel.notes.observe(this, Observer(::setNoteList))
         viewModel.noteClickedEvent.observe(this, Observer(::showNoteDetails))
 
         val layoutManager =
             LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
 
-        recyclerView.adapter = adapter
         recyclerView.layoutManager = layoutManager
+        viewModel.notes.observe(this, Observer(::setNoteList))
     }
 
-    private fun setNoteList(notesList: List<Note>) {
-        adapter.setNoteList(notesList)
+    private fun setNoteList(notesList: PagedList<Note>) {
+        adapter.submitList(notesList)
+        recyclerView.adapter = adapter
     }
 
     private fun showNoteDetails(note: Note) {
