@@ -2,7 +2,9 @@ package com.example.server
 
 import com.example.common.CreateNoteDto
 import com.example.server.db.DatabaseFactory
+import com.example.server.model.CreatePersonDto
 import com.example.server.repository.NoteRepository
+import com.example.server.repository.PersonRepository
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -40,6 +42,7 @@ fun Application.module(testing: Boolean = false) {
     }
 
     val repository = NoteRepository()
+    val personRepository = PersonRepository()
 
     routing {
         route("/notes") {
@@ -65,6 +68,33 @@ fun Application.module(testing: Boolean = false) {
                     call.respond(HttpStatusCode.NotFound)
                 } else {
                     repository.delete(id)
+                    call.respond(HttpStatusCode.OK)
+                }
+            }
+        }
+        route("/persons") {
+            get {
+                val start = call.request.queryParameters["start"]?.toLong()
+                val size = call.request.queryParameters["size"]?.toInt()
+                if (start == null || size== null) {
+                    val persons = personRepository.getAll()
+                    call.respond(persons)
+                } else {
+                    val persons = personRepository.getPage(start, size)
+                    call.respond(persons)
+                }
+            }
+            post {
+                val person = call.receive<CreatePersonDto>()
+                personRepository.add(person)
+                call.respond(HttpStatusCode.OK)
+            }
+            delete {
+                val id = call.request.queryParameters["id"]?.toLong()
+                if (id == null) {
+                    call.respond(HttpStatusCode.NotFound)
+                } else {
+                    personRepository.delete(id)
                     call.respond(HttpStatusCode.OK)
                 }
             }
